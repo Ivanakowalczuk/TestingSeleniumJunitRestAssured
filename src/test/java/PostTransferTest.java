@@ -1,8 +1,7 @@
-import io.restassured.RestAssured;
 import io.restassured.response.Response;
 import org.junit.jupiter.api.Test;
+import utils.AccountsUtils;
 import utils.LoginUtils;
-
 import static io.restassured.RestAssured.given;
 
 
@@ -13,12 +12,13 @@ public class PostTransferTest {
         String password = "Juana123";
         Response loginResponse = LoginUtils.loginUser(userName, password);
         System.out.println("El usuario está logueado, código obtenido: " + loginResponse.statusCode());
-
+        String customerId = loginResponse.path("customer.id");
+        Response accountsResponse = AccountsUtils.getAccountsForUser(customerId);
+        String fromAccountId =  accountsResponse.path("accounts.account[1].id");
+        String toAccountId =  accountsResponse.path("accounts.account[2].id");
         String baseUrl = "https://parabank.parasoft.com/parabank/services/bank";
         String endpoint = "/transfer";
-        int fromAccountId = 15342;
-        int toAccountId = 15231;
-        int amount = 15;
+        int amount = 10;
         String url = baseUrl + endpoint + "?" + "fromAccountId=" + fromAccountId + "&toAccountId=" + toAccountId + "&amount=" + amount;
         String responseBody = given()
                 .post(url)
