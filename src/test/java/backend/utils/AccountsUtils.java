@@ -1,4 +1,4 @@
-package utils;
+package backend.utils;
 
 import io.restassured.RestAssured;
 import io.restassured.response.Response;
