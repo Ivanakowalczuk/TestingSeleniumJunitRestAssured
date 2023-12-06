@@ -15,7 +15,7 @@ public class Register extends BasePage{
     private By userName = By.xpath("//input[@id='customer.username']");
     private By password = By.xpath("//input[@id='customer.password']");
     private By confirmPassword = By.xpath("//input[@id='repeatedPassword']");
-    private By registerButon = By.xpath("//input[@value='Register']");
+    private By registerButton = By.xpath("//input[@value='Register']");
     private By successMessage = By.xpath("//p[contains(text(),'Your account was created successfully. You are now')]");
 
 
@@ -73,7 +73,7 @@ public class Register extends BasePage{
 
     public void clickRegisterButton() throws InterruptedException {
         Thread.sleep(1000);
-        click(registerButon);
+        click(registerButton);
     }
 
     public String getSuccessMessage() throws InterruptedException {

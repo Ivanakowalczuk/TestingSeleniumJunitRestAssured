@@ -34,7 +34,7 @@ public class RegisterTest {
     @Test
     @Tag("Register")
     @Tag("ALL")
-    public void SuccessRegisterTest() throws InterruptedException {
+    public void registerTest() throws InterruptedException {
         ExtentTest test = extent.createTest("Proceso de registro");
         test.log(Status.INFO, "Inicia el Test");
         Register register = new Register(driver, wait);
@@ -43,7 +43,7 @@ public class RegisterTest {
             register.clickRegister();
             Assertions.assertEquals(register.getRegisterTitle(), "Signing up is easy!");
             test.log(Status.PASS, "Ingreso a la página de Registro");
-            register.writeName("Pepito");
+            register.writeName("Manzanita");
             register.writeLastName("Perez");
             register.writeAddress("Av 234");
             register.writeCity("Florida");
@@ -51,7 +51,7 @@ public class RegisterTest {
             register.writeZipCode("32789");
             register.writePhone("351247895");
             register.writeSsn("123-23-52");
-            register.writeUserName("pepitoperez");
+            register.writeUserName("manzanitaperez");
             register.writePassword("12345678");
             register.writeConfirmPassword("12345678");
             test.log(Status.PASS, "Datos de Registro completados");

@@ -1,17 +1,15 @@
 import org.openqa.selenium.By;
+import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-import java.time.Duration;
-
 public class BasePage {
-    protected By logoImg = By.className("logo");
-    protected By registerButon = By.xpath("(//a[normalize-space()='Register'])[1]");
+    protected By registerButton = By.xpath("(//a[normalize-space()='Register'])[1]");
     protected By name = By.xpath("//input[@name='username']");
     protected By password = By.xpath("//input[@name='password']");
-    protected By loginButon = By.xpath("//input[@value='Log In']");
+    protected By loginButton = By.xpath("//input[@value='Log In']");
     public static WebDriver driver;
     public static WebDriverWait wait;
 
@@ -42,14 +40,14 @@ public class BasePage {
         this.elementFind(locator).sendKeys(input);
     }
 
-    protected void sendKey(CharSequence key, By locator) throws InterruptedException {
-        this.elementFind(locator).sendKeys(key);
+    public void click(By locator) throws InterruptedException {
+        try {
+            wait.until(ExpectedConditions.elementToBeClickable(locator)).click();
+        } catch (TimeoutException e) {
+          System.out.println("Error al hacer clic en: " + e.getMessage());
+        }
     }
 
-    protected void click(By locator) throws InterruptedException {
-        wait.until(ExpectedConditions.elementToBeClickable(locator));
-        this.elementFind(locator).click();
-    }
 
     protected String getText(By locator) throws InterruptedException {
         return this.elementFind(locator).getText();
@@ -57,11 +55,7 @@ public class BasePage {
 
     public void clickRegister() throws InterruptedException {
         Thread.sleep(1000);
-        this.click(registerButon);
-    }
-
-    public void clickEnLogo() throws InterruptedException {
-        this.click(logoImg);
+        this.click(registerButton);
     }
 
     public void writeUserName(String userName) throws InterruptedException{
@@ -76,7 +70,7 @@ public class BasePage {
     }
 
     public void clickLogin() throws InterruptedException {
-        this.click(loginButon);
+        this.click(loginButton);
     }
 
 }
